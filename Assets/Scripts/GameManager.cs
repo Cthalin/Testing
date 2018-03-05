@@ -10,7 +10,51 @@ public class GameManager : MonoBehaviour
 
     public static GameManager gameManager;
 
-    public float score;
+    private float score;
+
+    [SerializeField]
+    private String saveButton = "f5";
+    [SerializeField]
+    private String loadButton = "f9";
+
+    public float Score
+    {
+        get
+        {
+            return score;
+        }
+
+        set
+        {
+            score = value;
+        }
+    }
+
+    public string SaveButton
+    {
+        get
+        {
+            return saveButton;
+        }
+
+        set
+        {
+            saveButton = value;
+        }
+    }
+
+    public string LoadButton
+    {
+        get
+        {
+            return loadButton;
+        }
+
+        set
+        {
+            loadButton = value;
+        }
+    }
 
     // Use this for initialization
     void Awake()
@@ -28,7 +72,7 @@ public class GameManager : MonoBehaviour
 
     private void OnGUI()
     {
-        GUI.Label(new Rect(10, 10, 100, 30), "Score: " + score);
+        GUI.Label(new Rect(10, 10, 100, 30), "Score: " + Score);
     }
 
     private void Save()
@@ -37,7 +81,7 @@ public class GameManager : MonoBehaviour
         FileStream file = File.Create(Application.persistentDataPath + "/playerInfo.dat");
 
         PlayerData playerData = new PlayerData();
-        playerData.score = score;
+        playerData.score = Score;
 
         bf.Serialize(file, playerData);
         file.Close();
@@ -52,13 +96,12 @@ public class GameManager : MonoBehaviour
         {
             file = File.Open(Application.persistentDataPath + "/playerInfo.dat", FileMode.Open);
             PlayerData playerData = (PlayerData)bf.Deserialize(file);
-            score = playerData.score;
-            Debug.Log(Application.persistentDataPath);
+            Score = playerData.score;
         } else
         {
             file = File.Create(Application.persistentDataPath + "/playerInfo.dat");
             PlayerData playerData = new PlayerData();
-            playerData.score = score;
+            playerData.score = Score;
 
             bf.Serialize(file, playerData);
         }
@@ -68,18 +111,18 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown("space"))
+        if (Input.GetKeyDown(saveButton))
         {
             Save();
             Debug.Log("Saved");
         }
 
-        if (Input.GetKeyDown("b"))
+        if (Input.GetKeyDown("space"))
         {
-            score += 1;
+            Score += 1;
         }
 
-        if (Input.GetKeyDown("l"))
+        if (Input.GetKeyDown(loadButton))
         {
             Load();
             Debug.Log("Load");
