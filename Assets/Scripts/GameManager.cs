@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
     public static GameManager gameManager;
 
     private float score;
+    private float timeBetweenSaves = 2f;
+    private float timestamp;
 
     [SerializeField]
     private String saveButton = "f5";
@@ -111,10 +113,11 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(saveButton))
+        if (Time.time >= timestamp && Input.GetKeyDown(saveButton))
         {
             Save();
             Debug.Log("Saved");
+            timestamp = Time.time + timeBetweenSaves;
         }
 
         if (Input.GetKeyDown("space"))
