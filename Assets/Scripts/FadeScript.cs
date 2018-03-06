@@ -11,7 +11,7 @@ public class FadeScript : MonoBehaviour {
     {
         _haltIn = true;
         _haltOut = false;
-        StartCoroutine(DoFadeOut());
+        StartCoroutine(DoFadeOutPartial());
     }
 
     IEnumerator DoFadeOut()
@@ -33,6 +33,30 @@ public class FadeScript : MonoBehaviour {
         }
 
         canvasGroup.interactable = false;
+        yield return null;
+    }
+
+    IEnumerator DoFadeOutPartial()
+    {
+        float timer = Time.time + 0.5f;
+        CanvasGroup canvasGroup = GetComponent<CanvasGroup>();
+        if (_haltOut)
+        {
+            yield break;
+        }
+
+        while (canvasGroup.alpha > 0 && Time.time < timer)
+        {
+            if (_haltOut)
+            {
+                yield break;
+            }
+            canvasGroup.alpha -= Time.deltaTime / 2;
+            
+            yield return null;
+        }
+
+        //canvasGroup.interactable = false;
         yield return null;
     }
 
