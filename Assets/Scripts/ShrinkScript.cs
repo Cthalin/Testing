@@ -61,5 +61,33 @@ public class ShrinkScript : MonoBehaviour {
         {
             Enlarge();
         }
-	}
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            RaycastHit _hit;
+            Ray _ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            if (Physics.Raycast(_ray,out _hit, Mathf.Infinity))
+            {
+                if(_hit.collider.tag == "target")
+                {
+                    Shrink();
+                }
+            }
+        }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            RaycastHit _hit;
+            Ray _ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            if (Physics.Raycast(_ray, out _hit, Mathf.Infinity))
+            {
+                if (_hit.collider.tag == "target")
+                {
+                    Enlarge();
+                }
+            }
+        }
+    }
 }
