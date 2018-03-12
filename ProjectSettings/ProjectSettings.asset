@@ -718,7 +718,7 @@ PlayerSettings:
   facebookSdkVersion: 7.9.4
   apiCompatibilityLevel: 2
   cloudProjectId: a00de6a6-920a-476f-be06-e0e78517fa52
-  projectName: 
+  projectName: Testing
   organizationId: cthalin
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
